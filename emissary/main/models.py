@@ -42,6 +42,9 @@ class Link(models.Model):
 
         super(Link, self).save(*args, **kwargs)
 
+    @property
+    def visits_count(self):
+        return self.visit_set.count()
 
 
 class Visit(models.Model):

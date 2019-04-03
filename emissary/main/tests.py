@@ -3,6 +3,7 @@ from django.test import TestCase
 from datetime import datetime, timezone
 
 from emissary.main.models import Link, Visit
+from emissary.main.serializers import LinkSerializer, VisitSerializer
 
 class LinkTestCase(TestCase):
 
@@ -32,12 +33,30 @@ class LinkTestCase(TestCase):
 
     def test_count_visits(self):
         link = Link.objects.create(title="Link 1")
+        link2 = Link.objects.create(title="Link 2")
+        link.save()
+        link2.save()
+
+        visit1 = Visit.objects.create(link=link)
+        visit2 = Visit.objects.create(link=link)
+        visit3 = Visit.objects.create(link=link2)
+        visit4 = Visit.objects.create(link=link)
+
+        self.assertEqual(3, link.visits_count)
+        self.assertEqual(1, link2.visits_count)
+
+
+class LinkSerializerTestCase(TestCase):
+
+    def test_basic_serialize(self):
+        link = Link.objects.create(title="Link 1")
         link.save()
 
         visit1 = Visit.objects.create(link=link)
         visit2 = Visit.objects.create(link=link)
-        visit3 = Visit.objects.create(link=link)
-        visit4 = Visit.objects.create(link=link)
 
-        self.assertEqual(4, link.visit_set.count())
+        serializer = LinkSerializer(link)
+
+        self.assertListEqual(sorted(['created_at', 'slug', 'title', 'visits_count']),
+                             sorted(serializer.data.keys()))
 
