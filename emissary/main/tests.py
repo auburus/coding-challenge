@@ -57,6 +57,6 @@ class LinkSerializerTestCase(TestCase):
 
         serializer = LinkSerializer(link)
 
-        self.assertListEqual(sorted(['created_at', 'slug', 'title', 'visits_count']),
+        self.assertListEqual(sorted(['created_at', 'slug', 'title', 'visits_count', 'visits']),
                              sorted(serializer.data.keys()))
 
