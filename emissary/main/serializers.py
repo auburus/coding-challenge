@@ -32,6 +32,6 @@ class LinkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Link
-        fields = ('created_at', 'title', 'slug', 'visits_count', 'visits')
+        fields = ('id', 'created_at', 'title', 'slug', 'visits_count', 'visits')
         depth = 1
 
