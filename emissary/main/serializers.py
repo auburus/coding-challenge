@@ -24,7 +24,7 @@ class VisitSerializer(serializers.HyperlinkedModelSerializer):
 class LinkSerializer(serializers.ModelSerializer):
     """Serializer for each link
 
-    Visits is being dumped here, in a more real scenario there should be some
+    Every visit is also being shown here. In a more real scenario there should be some
     kind of aggregation or pagination present.
     """
 

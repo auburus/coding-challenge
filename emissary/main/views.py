@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 class LinkList(APIView):
-    """List all links or create a new one
+    """Get a list of all the valid links and their visits or create a new link.
 
     Note: There is a tradeoff on the level of abstraction used
     in the views. I have not used the mixins to avoid falling into
@@ -46,6 +46,5 @@ class Landing(APIView):
 
         link.save_visit(visitSerializer.validated_data)
 
-        linkSerializer = LinkSerializer(link)
-        return Response(linkSerializer.data, status=status.HTTP_200_OK)
+        return Response({'title': link.title, 'text': "lorem ipsum"}, status=status.HTTP_200_OK)
 
